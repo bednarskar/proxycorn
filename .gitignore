@@ -10,9 +10,13 @@ target/
 *.war
 logs/
 .classpath
-.project
+*.project
 .settings/
 /.metadata/
 .idea/
 .idea
-
+.project/
+.classpath/
+*.iml
+*.attach_pid*
+logs
