@@ -31,7 +31,7 @@ public class Filter {
 	}
 	
 	public void addCountry(String country) {
-		this.countryCodes.add(country);
+		if (!this.countryCodes.contains(country)) this.countryCodes.add(country);
 	}
 
 	public void removeCountry(String country) {
@@ -39,7 +39,7 @@ public class Filter {
 	}
 
 	public void addPort(String port) {
-		this.portNumbers.add(port);
+		if (!this.portNumbers.contains(port)) this.portNumbers.add(port);
 	}
 
 	public void removePort(String port) {

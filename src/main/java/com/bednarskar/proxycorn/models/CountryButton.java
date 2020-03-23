@@ -29,7 +29,8 @@ public class CountryButton extends ToggleButton {
 
     final EventHandler<MouseEvent> countryFilterAddEventHandler = ME -> {
         ToggleButton obj = ( ToggleButton ) ME.getSource();
-        if (obj.isPressed() && ! obj.isSelected()) {
+        //&& ! obj.isSelected()
+        if (obj.isPressed() && !obj.isSelected()) {
             Filter.getInstance().addCountry(obj.getId());
             obj.setStyle(DynamicStyles.PINK_SHADOW);
             obj.setSelected(false);
@@ -64,4 +65,5 @@ public class CountryButton extends ToggleButton {
         this.setStyle(DynamicStyles.BUTTON_COUNTRY_STYLE);
         this.setOnMousePressed(countryFilterAddEventHandler);
     }
+
 }

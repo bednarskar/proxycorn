@@ -106,8 +106,13 @@ public class FXMLController {
     private GridPane labelsForPort;
 
     final int[] i = {0};
-    Parent parentFilters;
-    Stage stageFiltersWindow;
+    private Parent parentFilters;
+    private Parent parentLoadFilters;
+    private Parent parentPlugins;
+
+    private Stage stageFiltersWindow;
+    private Stage stageLoadFilterWindow;
+    private Stage stagePluginsWindow;
 
     @FXML
     void initialize () throws IOException {
@@ -123,6 +128,9 @@ public class FXMLController {
         LOGGER.info("Starting ProxyCorn...");
         configureMenuEvents();
         prepareCountryButtons();
+        loadFiltersMenuEvents();
+        configurePlugins();
+
     }
 
     private void prepareCountryButtons() {
@@ -161,6 +169,20 @@ public class FXMLController {
         }
     };
 
+    public void preparePortLabelFromLoadedFilter() {
+        List<String> ports = Filter.getInstance().getPortNumbers();
+        labelsForPort = (GridPane) choosenPorts.getContent();
+        labelsForPort.getChildren().clear();
+        int[] no = {0};
+        i[0] = 0;
+        ports.forEach(p -> {
+            labelsForPort.add(new Label(p), 0, no[0]);
+            i[0] = i[0] + 1;
+            no[0] = no[0] +1;
+        });
+        choosenPorts.setContent(labelsForPort);
+
+    }
     @FXML
     public void removePortEvent () {
         if (! portNumbers.getStyle().contains(DynamicStyles.RED_TEXT)) {
@@ -204,10 +226,49 @@ public class FXMLController {
                 stageFiltersWindow.setTitle(DynamicStyles.SAVE_FILTER);
             }
             stageFiltersWindow.show();
-
-
         });
-
     }
+    public void configurePlugins () {
+        ProxyGobbler.getMenus().get(0).getItems().get(2).setOnAction(event -> {
+            if (stagePluginsWindow  == null ) {
+                stagePluginsWindow = new Stage();
+                ProxyCorn.loaderPluginScene.setRoot(new VBox());
+                try {
+                    parentPlugins = (VBox) ProxyCorn.loaderPluginScene.load();
+                } catch (IOException e) {
+                    LOGGER.error("Could not load menu 'configure' ", e);
+                }
+                Scene mainPluginScene = new Scene(parentPlugins);
+                mainPluginScene.setFill(Paint.valueOf("#ffe1f5"));
+                stagePluginsWindow.setScene(mainPluginScene);
+                stagePluginsWindow.setAlwaysOnTop(true);
+                stagePluginsWindow.toFront();
+                stagePluginsWindow.setTitle(DynamicStyles.SAVE_FILTER);
+            }
+            stagePluginsWindow.show();
+        });
+    }
+
+    public void loadFiltersMenuEvents () {
+        ProxyGobbler.getMenus().get(0).getItems().get(1).setOnAction(event -> {
+            if (stageLoadFilterWindow  == null ) {
+                stageLoadFilterWindow = new Stage();
+                ProxyCorn.loaderLoadFilterScene.setRoot(new VBox());
+                try {
+                    parentLoadFilters = (VBox) ProxyCorn.loaderLoadFilterScene.load();
+                } catch (IOException e) {
+                    LOGGER.error("Could not load menu 'configure' ", e);
+                }
+                Scene loadFilterScene = new Scene(parentLoadFilters);
+                loadFilterScene.setFill(Paint.valueOf("#ffe1f5"));
+                stageLoadFilterWindow.setScene(loadFilterScene);
+                stageLoadFilterWindow.setAlwaysOnTop(true);
+                stageLoadFilterWindow.toFront();
+                stageLoadFilterWindow.setTitle(DynamicStyles.LOAD_FILTER);
+            }
+            stageLoadFilterWindow.show();
+        });
+    }
+
 
 }
