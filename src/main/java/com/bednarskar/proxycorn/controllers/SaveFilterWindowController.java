@@ -57,6 +57,7 @@ public class SaveFilterWindowController {
     @FXML
     Button ok;
 
+
     public SaveFilterWindowController () throws IOException {
         this.filter = Filter.getInstance();
     }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<fx:root type="javafx.scene.layout.VBox" id="Window" fx:id="LoadPluginWindow" maxHeight="300"
+         maxWidth="700" minHeight="300" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0"
+         style="-fx-background-color: #dfdfdf;" xmlns="http://javafx.com/javafx/8.0.171"
+         xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@css/styles.css" fx:controller="com.bednarskar.proxycorn.controllers.LoadPluginWindowController">
+    <GridPane maxHeight="120" maxWidth="300" prefHeight="120" prefWidth="300" VBox.vgrow="ALWAYS"
+                fx:id="loadPluginAnchor">
+    </GridPane>
+</fx:root>

@@ -1,5 +1,7 @@
 package com.bednarskar.proxycorn.utils;
 
+import java.awt.*;
+
 public class DynamicStyles {
     // styles
     public static final String RED_TEXT = "-fx-text-fill: #cc0000";
@@ -26,5 +28,9 @@ public class DynamicStyles {
     public static final String FILTER_SAVED = "Filter Saved";
     public static final String EMPTY = "";
     public static final String UNDERSCORE = "_";
+    public static final String LOAD_FILTER = "Load filter";
+    public static final String LOAD_FILTER_SCENE = "/LoadFilter.fxml";
+    public static final String LOAD_PLUGIN_SCENE = "/LoadPlugin.fxml";
+
 
 }
