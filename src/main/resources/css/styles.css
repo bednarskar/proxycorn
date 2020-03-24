@@ -95,3 +95,12 @@
      -fx-faint-focus-color: transparent;
      -fx-focus-color:rgba(255,0,0,0.2);
 }
+
+#scrollPaneLoadPlugins {
+-fx-background-image: url("/img/rainbow.png"), url("/img/tux.png");
+-fx-background-size: 700, 300 ;
+-fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left top, right 50 top 50;
+    -fx-padding: 20,20,20,20;
+}

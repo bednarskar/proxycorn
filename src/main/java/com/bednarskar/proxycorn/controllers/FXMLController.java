@@ -242,6 +242,9 @@ public class FXMLController {
                 mainPluginScene.setFill(Paint.valueOf("#ffe1f5"));
                 stagePluginsWindow.setScene(mainPluginScene);
                 stagePluginsWindow.setAlwaysOnTop(true);
+                stagePluginsWindow.setResizable(false);
+                stagePluginsWindow.setMinHeight(400);
+                stagePluginsWindow.setMinWidth(700);
                 stagePluginsWindow.toFront();
                 stagePluginsWindow.setTitle(DynamicStyles.SAVE_FILTER);
             }
