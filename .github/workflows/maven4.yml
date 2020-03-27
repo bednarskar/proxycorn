@@ -20,5 +20,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
+    - name: maven-setings-action
+      uses: s4u/maven-settings-action@v2
+      with:
+        override: false
     - name: Build with Maven
       run: mvn -B package --file pom.xml
