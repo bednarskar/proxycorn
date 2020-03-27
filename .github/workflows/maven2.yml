@@ -32,12 +32,12 @@ jobs:
     # Maven server repository username
         maven-repo-server-username: bednarskar
     # Maven server repository password
-        maven-repo-server-password: ${{ secrets.GH }}
+        maven-repo-server-password: ${{ secrets.GH2 }}
     # The maven arguments for the release
     # The git user name for commiting the release
         git-release-bot-name: ${{ secrets.USERNAME }}
     # The git user email for commiting the release
         git-release-bot-email: ${{ secrets.EMAIL }}
     # Github access token. https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
-        access-token: ${{ secrets.GH }}
+        access-token: ${{ secrets.GH2 }}
       
