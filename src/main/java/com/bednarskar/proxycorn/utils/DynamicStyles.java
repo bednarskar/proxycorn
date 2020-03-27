@@ -33,6 +33,8 @@ public class DynamicStyles {
     public static final String LOAD_PLUGIN_SCENE = "/LoadPlugin.fxml";
     public static final String DEFAULT_LIGHT_BG_COL = "#ffe1f5";
     public static final String ALL_PNG_FILES_REGEX = ".*\\.png";
+    public static final int SMALL_WINDOW_WIDTH = 700;
+    public static final int SMALL_WINDOW_HEIGHT = 300;
 
 
 }
