@@ -2,7 +2,6 @@ package com.bednarskar.proxycorn;
 
 
 import com.bednarskar.proxycorn.api.ProxyCornPlugin;
-import com.bednarskar.proxycorn.controllers.FXMLController;
 import com.bednarskar.proxycorn.pluginresolver.PluginResolver;
 import com.bednarskar.proxycorn.utils.DynamicStyles;
 import javafx.application.Application;

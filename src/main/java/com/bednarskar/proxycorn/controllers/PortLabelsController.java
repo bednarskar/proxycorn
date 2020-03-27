@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 @Getter
 @Setter
 public class PortLabelsController {
-    final static Logger LOGGER = Logger.getLogger(FXMLController.class);
+    final static Logger LOGGER = Logger.getLogger(MainController.class);
 
     @FXML
     ScrollPane choosenPorts;

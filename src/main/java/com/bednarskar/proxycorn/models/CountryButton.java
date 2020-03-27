@@ -1,5 +1,6 @@
 package com.bednarskar.proxycorn.models;
 
+import com.bednarskar.proxycorn.api.model.Filter;
 import com.bednarskar.proxycorn.utils.DynamicStyles;
 import com.neovisionaries.i18n.CountryCode;
 import javafx.event.EventHandler;

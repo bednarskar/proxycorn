@@ -1,37 +1,21 @@
 package com.bednarskar.proxycorn.controllers;
 
-import com.bednarskar.proxycorn.ProxyCorn;
-import com.bednarskar.proxycorn.models.CountryButton;
-import com.bednarskar.proxycorn.models.Filter;
-import com.bednarskar.proxycorn.models.FilterCheckBox;
-import com.bednarskar.proxycorn.models.PortNumberField;
+import com.bednarskar.proxycorn.api.model.Filter;
 import com.bednarskar.proxycorn.utils.DynamicStyles;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import org.apache.log4j.Logger;
-import org.reflections.Reflections;
-import org.reflections.scanners.ResourcesScanner;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Pattern;
 
 @Getter
 @Setter
