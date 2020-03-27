@@ -1,12 +1,14 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Java CI with Maven
 
+name: Maven Package
+
+# on:
+#   release:
+#     types: [created]
 on:
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
 
 jobs:
@@ -20,24 +22,13 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Maven release
-      uses: qcastel/github-actions-maven-release@v1.0.3
-      with:
-    # Filter the branch to execute the release on
-        release-branch-name: master
-    # The maven local repository path
-        maven-local-repo-path: https://maven.pkg.github.com/bednarskar/proxycornApi
-    # Maven server repository id to push the artefacts to
-        maven-repo-server-id: github
-    # Maven server repository username
-        maven-repo-server-username: bednarskar
-    # Maven server repository password
-        maven-repo-server-password: ${{ secrets.GH2 }}
-    # The maven arguments for the release
-    # The git user name for commiting the release
-        git-release-bot-name: ${{ secrets.USERNAME }}
-    # The git user email for commiting the release
-        git-release-bot-email: ${{ secrets.EMAIL }}
-    # Github access token. https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
-        access-token: ${{ secrets.GH2 }}
-      
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+#     - name: Publish to GitHub Packages Apache Maven
+#       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+#       env:
+#         GITHUB_TOKEN: ${{ github.token }}
