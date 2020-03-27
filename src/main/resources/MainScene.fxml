@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.*?>
 <?import com.bednarskar.proxycorn.models.FilterCheckBox?>
 <fx:root type="javafx.scene.layout.VBox" id="Window" fx:id="GobblerProxy" maxHeight="-Infinity"
-      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
-      style="-fx-background-color: #ccccd8;" xmlns="http://javafx.com/javafx/8.0.171"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.bednarskar.proxycorn.controllers.FXMLController" stylesheets="@css/styles.css">
+         maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
+         style="-fx-background-color: #ccccd8;" xmlns="http://javafx.com/javafx/8.0.171"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.bednarskar.proxycorn.controllers.MainController" stylesheets="@css/styles.css">
     <children>
-        <MenuBar id="ProxyGobbler" fx:id="ProxyGobbler" VBox.vgrow="NEVER">
+        <MenuBar id="ProxyGobbler" fx:id="menuBar" VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="Configuration">
                     <items>
@@ -29,7 +29,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-1" maxWidth="600" prefHeight="400" prefWidth="600" VBox.vgrow="ALWAYS">
             <children>
                 <Group fx:id="optionsGroup" layoutX="14.0" layoutY="21.0" style="-fx-background-color: #ccccd8;">
                     <children>
@@ -68,21 +68,17 @@
                         </Button>
                         <Label text="Ports: " layoutX="0" layoutY="350"/>
                         <fx:include fx:id="choosenPorts" source="PortLabels.fxml"/>
-<!--                        <ScrollPane fx:id="choosenPorts" layoutX="0" layoutY="370"-->
-<!--                                    style="-fx-background-color: #ccccd8;" minWidth="100" maxWidth="100" prefWidth="100"-->
-<!--                                    prefHeight="100" vbarPolicy="AS_NEEDED" hbarPolicy="AS_NEEDED"-->
-<!--                                    prefViewportHeight="40">-->
-<!--                            <GridPane fx:id="labelsForPort"/>-->
-<!--                        </ScrollPane>-->
                     </children>
 
                 </Group>
+                <Label text="(optional) max number of results: " AnchorPane.rightAnchor="360" AnchorPane.bottomAnchor="30"></Label>
+                <TextField fx:id="recordsNumber" minWidth="40" maxWidth="40" AnchorPane.bottomAnchor="30" AnchorPane.rightAnchor="310"></TextField>
                 <Button fx:id="getButton" defaultButton="true" layoutX="180.0" layoutY="305.0" mnemonicParsing="false"
-                        prefHeight="52.0" prefWidth="122.0" text="Get proxies" AnchorPane.bottomAnchor="14.0"
-                        AnchorPane.rightAnchor="150.0"/>
-                <ScrollPane fx:id="scrollPane" layoutX="170.0" layoutY="15.0" minWidth="-Infinity"
+                        prefHeight="52.0" prefWidth="122.0" text="Get proxies" AnchorPane.bottomAnchor="30.0"
+                        AnchorPane.rightAnchor="180.0" onMouseClicked="#getProxiesEvent"/>
+                <ScrollPane fx:id="scrollPane" layoutX="170.0" layoutY="15.0" minWidth="600" minHeight="400" maxHeight="-1"
                             AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="5.0"
-                            AnchorPane.bottomAnchor="80" fitToHeight="true" fitToWidth="true" vbarPolicy="AS_NEEDED" vmax="500" minViewportHeight="200">
+                            AnchorPane.bottomAnchor="100" fitToHeight="true" fitToWidth="true" vbarPolicy="AS_NEEDED" vmax="500" minViewportHeight="200">
                     <content>
                         <GridPane fx:id="buttons" hgap="5" vgap="5"></GridPane>
                     </content>

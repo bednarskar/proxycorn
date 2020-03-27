@@ -1,8 +1,8 @@
 package com.bednarskar.proxycorn.controllers;
 
 import com.bednarskar.proxycorn.ProxyCorn;
+import com.bednarskar.proxycorn.api.model.Filter;
 import com.bednarskar.proxycorn.models.CountryButton;
-import com.bednarskar.proxycorn.models.Filter;
 import com.bednarskar.proxycorn.models.FilterCheckBox;
 import com.bednarskar.proxycorn.utils.DynamicStyles;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,7 +12,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,18 +25,19 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 @Getter
 @Setter
-public class LoadFilterWindowController {
+public final class LoadFilterWindowController {
 
-    final static Logger LOGGER = Logger.getLogger(LoadFilterWindowController.class);
+    static final Logger LOGGER = Logger.getLogger(LoadFilterWindowController.class);
 
     @FXML
-    private VBox LoadFilterWindow;
+    private VBox loadFilterWindow;
 
     @FXML
     private AnchorPane mainAnchor;
@@ -58,62 +62,57 @@ public class LoadFilterWindowController {
 
     private Map<String, Filter> filters;
 
-    public LoadFilterWindowController () throws IOException {
+    public LoadFilterWindowController() {
         this.filter = Filter.getInstance();
     }
 
     private Filter filter;
-    final int[] i = {0};
+    private final int[] i = {0};
 
     @FXML
-    void initialize () throws IOException {
+    void initialize() throws IOException {
         LOGGER.debug("Load filter window opened...");
-        LoadFilterWindow.setDisable(false);
-        LoadFilterWindow.requestLayout();
-        LoadFilterWindow.layout();
-        Map<String, Filter> filters = getFilters();
+        loadFilterWindow.setDisable(false);
+        loadFilterWindow.requestLayout();
+        loadFilterWindow.layout();
+        filters = getFilters();
         load.setOnMouseClicked(event -> {
             String idToLoad = prevArea.getId();
             Filter.getInstance().setCountryCodes(filters.get(idToLoad).getCountryCodes());
             Filter.getInstance().setPortNumbers(filters.get(idToLoad).getPortNumbers());
             Filter.getInstance().setProtocols(filters.get(idToLoad).getProtocols());
             ProxyCorn.mainLoader.setRoot(new VBox());
-            FXMLController controller = ProxyCorn.mainLoader.getController();
+            MainController controller = ProxyCorn.mainLoader.getController();
             List<String> codesCountry = filters.get(idToLoad).getCountryCodes();
-                controller.getButtons().getChildren().forEach(child -> {
-                    ToggleButton childT = (CountryButton) child;
-                    if ((codesCountry.contains(childT.getId()) && childT.isSelected()) ||
-                            (codesCountry.contains(childT.getId()) && !childT.isSelected())) {
-                        // leave on list or add to list
-                        childT.setSelected(false);
-                        childT.fireEvent(new MouseEvent(MouseEvent.MOUSE_PRESSED, childT.getLayoutX(), childT.getLayoutY(), childT.getLayoutX(), childT.getLayoutY(), MouseButton.PRIMARY, 1,
-                                true, true, true, true, true, true, true, true, true, true, null));
-                        childT.setSelected(true);
-                    }  else if (!codesCountry.contains(childT.getId()) && childT.isSelected()) {
-                        // unclick
-                        childT.fireEvent(new MouseEvent(MouseEvent.MOUSE_PRESSED, childT.getLayoutX(), childT.getLayoutY(), childT.getLayoutX(), childT.getLayoutY(), MouseButton.PRIMARY, 1,
-                                true, true, true, true, true, true, true, true, true, true, null));
-                        childT.setSelected(false);
-
+            controller.getButtons().getChildren().forEach(child -> {
+                ToggleButton childT = (CountryButton) child;
+                if ((codesCountry.contains(childT.getId()) && childT.isSelected())
+                        || (codesCountry.contains(childT.getId()) && ! childT.isSelected())) {
+                    // leave on list or add to list
+                    childT.setSelected(false);
+                    markMouseClick(childT, true);
+                } else if (! codesCountry.contains(childT.getId()) && childT.isSelected()) {
+                    // unclick
+                    markMouseClick(childT, false);
+                }
+                Filter.getInstance().setCountryCodes(filters.get(idToLoad).getCountryCodes());
+            });
+            controller.getOptionsGroup().getChildren().forEach(ch -> {
+                if (ch.getClass().getSimpleName().equals("FilterCheckBox")) {
+                    CheckBox protocolCheckbox = ( FilterCheckBox ) ch;
+                    if (filter.getProtocols().contains(ch.getId())) {
+                        protocolCheckbox.setSelected(true);
+                    } else {
+                        protocolCheckbox.setSelected(false);
                     }
-                    Filter.getInstance().setCountryCodes(filters.get(idToLoad).getCountryCodes());
-                });
-                 controller.getOptionsGroup().getChildren().forEach(ch -> {
-                     if (ch.getClass().getSimpleName().equals("FilterCheckBox")) {
-                         CheckBox protocolCheckbox = ( FilterCheckBox ) ch;
-                         if (filter.getProtocols().contains(ch.getId())) {
-                             protocolCheckbox.setSelected(true);
-                         } else {
-                             protocolCheckbox.setSelected(false);
-                         }
-                     }
+                }
 
-                 });
-                 controller.preparePortLabelFromLoadedFilter();
-            LoadFilterWindow.fireEvent(new Event(WindowEvent.WINDOW_CLOSE_REQUEST));
+            });
+            controller.preparePortLabelFromLoadedFilter();
+            loadFilterWindow.fireEvent(new Event(WindowEvent.WINDOW_CLOSE_REQUEST));
         });
         filters.forEach((k, v) -> {
-            LOGGER.info("Initializing buttons");
+            LOGGER.debug("Initializing buttons");
             Button button = new Button(k);
             button.setId(k);
             button.setVisible(true);
@@ -121,7 +120,7 @@ public class LoadFilterWindowController {
             button.setBorder(Border.EMPTY);
             button.setRotate(0);
             button.setOnMouseClicked(event -> {
-                Button buttonChoosen = ( Button ) event.getSource();
+                Button buttonChoosen = (Button) event.getSource();
                 String id = buttonChoosen.getId();
                 ObjectMapper mapper = new ObjectMapper();
                 try {
@@ -139,16 +138,15 @@ public class LoadFilterWindowController {
                             .replace("}\n}", "  }\n}");
                     prevArea.setText(jsonString);
                     prevArea.setId(id);
-                    LOGGER.info("This is id clicked:" + id);
+                    LOGGER.debug("This is id clicked:" + id);
                 } catch (JsonProcessingException e) {
                     LOGGER.error("Generating preview of filter - error occured.", e);
                 }
-
             });
-            labelsForFilter.add(button,0, i[0]);
+            labelsForFilter.add(button, 0, i[0]);
             i[0] = i[0] + 1;
         });
-        mainAnchor.getChildren().set(0,labelsForFilter);
+        mainAnchor.getChildren().set(0, labelsForFilter);
 
     }
 
@@ -177,4 +175,10 @@ public class LoadFilterWindowController {
 
     }
 
-  }
+
+    private void markMouseClick(ToggleButton childT, boolean selected) {
+        childT.fireEvent(new MouseEvent(MouseEvent.MOUSE_PRESSED, childT.getLayoutX(), childT.getLayoutY(), childT.getLayoutX(), childT.getLayoutY(), MouseButton.PRIMARY, 1,
+                true, true, true, true, true, true, true, true, true, true, null));
+        childT.setSelected(selected);
+    }
+}

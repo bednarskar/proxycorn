@@ -31,6 +31,8 @@ public class DynamicStyles {
     public static final String LOAD_FILTER = "Load filter";
     public static final String LOAD_FILTER_SCENE = "/LoadFilter.fxml";
     public static final String LOAD_PLUGIN_SCENE = "/LoadPlugin.fxml";
+    public static final String DEFAULT_LIGHT_BG_COL = "#ffe1f5";
+    public static final String ALL_PNG_FILES_REGEX = ".*\\.png";
 
 
 }

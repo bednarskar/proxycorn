@@ -49,6 +49,7 @@ public class PluginResolver {
         pluginStates.forEach((name, state) -> {
             if (state.name().equals(PluginState.ON.name()) && ! proxyCornPluginMap.containsKey(name)) {
                 try {
+                    LOGGER.debug("Loading plugin " + name);
                     loadSinglePlugin(name);
                 } catch (Exception e) {
                    LOGGER.error("Error during loading plugin "+ name, e);
@@ -74,6 +75,7 @@ public class PluginResolver {
                 proxyCornPluginMap.put(pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE), plugin);
                 // set plugin on by default
                 setPluginState(PluginState.ON, pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE));
+                LOGGER.debug("Loaded plugin "+ pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE));
 //                Set<ProxyInstanceBasicInfo> proxyInstanceBasicInfoSet = plugin.getProxyInstanceBasicInfo(Filter.getInstance());
 //                proxyInstanceBasicInfoSet.forEach(proxy -> LOGGER.info(proxy.getIp() + " " + proxy.getPort() + " " + proxy.getProtocol().name()));
             }
@@ -83,6 +85,7 @@ public class PluginResolver {
     }
 
     private void loadPlugins() throws Exception {
+        LOGGER.debug("Loading plugins...");
         proxyCornPluginMap = new HashMap<>();
         List<Path> pathList = getPluginsPaths();
 
@@ -97,6 +100,7 @@ public class PluginResolver {
             if (validate(pluginAttributes)) {
                 LOGGER.info(pluginAttributes);
                 ProxyCornPlugin plugin = (ProxyCornPlugin) urlClassLoader.loadClass(pluginAttributes.get(DynamicStyles.PLUGIN_PATH_ATTRIBUTE)).getDeclaredConstructor().newInstance();
+                LOGGER.info("Loaded plugin class: " +plugin.getName());
                 proxyCornPluginMap.put(pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE), plugin);
                 // set plugin off by default
                 setPluginState(PluginState.OFF, pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE));
@@ -117,6 +121,8 @@ public class PluginResolver {
         } catch (IOException e) {
             LOGGER.error("Cannot load plugins. Check if plugins directory exists.", e);
         }
+        LOGGER.debug("Number of paths with plugins: " + pathList.size());
+        LOGGER.debug("Detected paths: " + pathList);
         return pathList;
     }
 
@@ -125,6 +131,7 @@ public class PluginResolver {
     }
 
     public void setPluginState(Enum<PluginState> pluginState, String pluginName) {
+        LOGGER.debug("Plugin state changed to: " + pluginState.name() + " " + pluginName);
         pluginStates.put(pluginName, pluginState);
     }
 

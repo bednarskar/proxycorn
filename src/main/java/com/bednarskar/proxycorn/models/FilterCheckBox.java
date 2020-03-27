@@ -1,5 +1,6 @@
 package com.bednarskar.proxycorn.models;
 
+import com.bednarskar.proxycorn.api.model.Filter;
 import javafx.event.EventHandler;
 import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
