@@ -26,7 +26,7 @@ jobs:
     # Filter the branch to execute the release on
         release-branch-name: master
     # The maven local repository path
-        maven-local-repo-path: $M2_HOME/proxycornApi
+        maven-local-repo-path: https://maven.pkg.github.com/bednarskar/proxycornApi
     # Maven server repository id to push the artefacts to
         maven-repo-server-id: github
     # Maven server repository username
