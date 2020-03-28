@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<fx:root type="javafx.scene.layout.VBox" id="Window" fx:id="SaveFilterWindow" maxHeight="120"
+         maxWidth="300" minHeight="120" minWidth="-Infinity" prefHeight="120.0" prefWidth="300.0"
+         style="-fx-background-color: #dfdfdf;" xmlns="http://javafx.com/javafx/8.0.171"
+         xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@css/styles.css" fx:controller="com.bednarskar.proxycorn.controllers.SaveFilterWindowController" >
+    <children>
+        <AnchorPane maxHeight="120" maxWidth="300" prefHeight="120" prefWidth="300" VBox.vgrow="ALWAYS" fx:id="mainAnchor">
+            <children>
+                <Label text="Save filter as..." layoutY="30" layoutX="30" fx:id="label"/>
+                <TextField prefWidth="200" prefHeight="10" layoutY="60" layoutX="20" fx:id="filterNameField"/>
+                <Button fx:id="saveFilterButton" layoutX="230.0" layoutY="60.0" mnemonicParsing="false"
+                        prefHeight="35.0" prefWidth="45.0" maxHeight="35" maxWidth="45" minHeight="35" minWidth="45" onMouseClicked="#saveFilter">
+                    <graphic>
+                        <ImageView>
+                            <image>
+                                <Image url="@icons/diskette.png" requestedHeight="20.0" requestedWidth="20.0" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="ok" layoutX="130.0" layoutY="60.0" mnemonicParsing="false"
+                        prefHeight="33.0" prefWidth="65.0" maxHeight="33" maxWidth="65" minWidth="65"  minHeight="33" onMouseClicked="#ok" visible="false" text="OK"
+                textAlignment="center">
+                </Button>
+            </children>
+        </AnchorPane>
+    </children>
+</fx:root>
