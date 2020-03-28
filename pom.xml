@@ -147,4 +147,11 @@
             </snapshots>
         </repository>
     </repositories>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub bednarskar Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/bednarskar/proxycornApi</url>
+        </repository>
+    </distributionManagement>
 </project>
