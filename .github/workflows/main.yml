@@ -22,7 +22,7 @@ jobs:
     - name: maven-settings-xml-action
       uses: whelk-io/maven-settings-xml-action@v4
       with:
-          repositories: '[{ "id": "github", "url": "https://maven.pkg.github.com/bednarskar/proxycornApi" }, { "id": "central", "url": "https://repo1.maven.org/maven2" }]'
+          repositories: '[{ "id": "github", "url": "https://maven.pkg.github.com/bednarskar/proxycornApi" }]'
           servers: '[{ "id": "github", "username": "${{ secrets.USERNAME }}", "password": "${{ secrets.GH }}" }]'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
