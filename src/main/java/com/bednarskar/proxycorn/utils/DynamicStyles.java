@@ -13,7 +13,7 @@ public class DynamicStyles {
             "    -fx-background-radius: 5, 4, 3;";
     public static final String NONE_EFFECT_STYLE = "-fx-effect: none";
     // plugins
-    public static final String PLUGINS_PATH = "/home/bleh/Desktop/plugins";
+    public static final String PLUGINS_PATH = "/etc/proxycorn/lib/plugins";
     public static final String PLUGIN_PATH_ATTRIBUTE = "Plugin-Path";
     public static final String PLUGIN_NAME_ATTRIBUTE = "Plugin-Name";
     public static final String JAR = ".jar";
@@ -23,7 +23,7 @@ public class DynamicStyles {
     public static final String APPLICATION_NAME = "ProxyCorn";
     public static final String SAVE_FILTER_SCENE = "/SaveFilter.fxml";
     public static final String SAVE_FILTER = "Save filter";
-    public static final String SAVED_FILTERS_PATH = "/home/bleh/Desktop/savedFilters/";
+    public static final String SAVED_FILTERS_PATH = "/etc/proxycorn/lib/filters/";
     public static final String SAVE_FILTER_AS = "Save filter as...";
     public static final String FILTER_SAVED = "Filter Saved";
     public static final String EMPTY = "";

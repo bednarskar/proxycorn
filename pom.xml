@@ -118,9 +118,6 @@
                                 <resource>
                                     <directory>src/lib</directory>
                                 </resource>
-                                <resource>
-                                    <directory>src/plugins</directory>
-                                </resource>
                             </resources>
                         </configuration>
                     </execution>
