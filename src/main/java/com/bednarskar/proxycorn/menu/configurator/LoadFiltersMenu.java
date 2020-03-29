@@ -10,6 +10,7 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 
 public class LoadFiltersMenu {
@@ -20,6 +21,10 @@ public class LoadFiltersMenu {
 
     public void loadLoadFiltersMenu (MenuBar menuBar) {
         menuBar.getMenus().get(0).getItems().get(1).setOnAction(event -> {
+            File file = new File(DynamicStyles.SAVED_FILTERS_PATH);
+            if (!file.exists() || !file.isDirectory()) {
+                new File(DynamicStyles.SAVED_FILTERS_PATH).mkdirs();
+            }
             if (stageLoadFilterWindow  == null ) {
                 stageLoadFilterWindow = new Stage();
                 ProxyCorn.loaderLoadFilterScene.setRoot(new VBox());

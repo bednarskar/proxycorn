@@ -104,3 +104,11 @@
     -fx-background-position: left top, right 50 top 50;
     -fx-padding: 20,20,20,20;
 }
+#scrollPaneCredits, #scrollPaneAbout {
+-fx-background-image: url("/img/rainbow.png");
+-fx-background-size: 700;
+-fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+    -fx-padding: 20,20;
+}

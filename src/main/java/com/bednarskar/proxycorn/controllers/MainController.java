@@ -2,9 +2,7 @@ package com.bednarskar.proxycorn.controllers;
 
 import com.bednarskar.proxycorn.events.GetProxies;
 import com.bednarskar.proxycorn.events.RemoveAddPort;
-import com.bednarskar.proxycorn.menu.configurator.ConfigureMenu;
-import com.bednarskar.proxycorn.menu.configurator.ConfigurePluginsMenu;
-import com.bednarskar.proxycorn.menu.configurator.LoadFiltersMenu;
+import com.bednarskar.proxycorn.menu.configurator.*;
 import com.bednarskar.proxycorn.models.FilterCheckBox;
 import com.bednarskar.proxycorn.models.PortNumberField;
 import com.bednarskar.proxycorn.utils.CountryButtonsBuilder;
@@ -16,6 +14,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
@@ -82,6 +81,12 @@ public class MainController {
     @FXML
     private GridPane labelsForPort;
 
+    private Stage stageInstallPlugin = new Stage();
+    private Stage stageLoadPlugin = new Stage();
+    private Stage stageAbout = new Stage();
+    private Stage stageCredits = new Stage();
+
+
     @FXML
     void initialize () {
         assert GobblerProxy != null : "fx:id=\"GobblerProxy\" was not injected: check your FXML file 'GoblerScene'.";
@@ -96,12 +101,24 @@ public class MainController {
         LOGGER.info("Starting ProxyCorn...");
         CountryButtonsBuilder countryButtonsBuilder = new CountryButtonsBuilder();
         countryButtonsBuilder.prepareCountryButtons(buttons);
+
         ConfigureMenu configureMenu = new ConfigureMenu();
         configureMenu.loadConfigureMenu(menuBar);
+
         LoadFiltersMenu loadFiltersMenu = new LoadFiltersMenu();
         loadFiltersMenu.loadLoadFiltersMenu(menuBar);
+
         ConfigurePluginsMenu configurePluginsMenu = new ConfigurePluginsMenu();
-        configurePluginsMenu.loadConfigurePluginsMenu(menuBar);
+        configurePluginsMenu.loadConfigurePluginsMenu(menuBar, stageLoadPlugin);
+
+        InstallPluginsMenu installPluginsMenu = new InstallPluginsMenu();
+        installPluginsMenu.loadInstallPluginsMenu(menuBar, stageInstallPlugin);
+
+        AboutMenu aboutMenu = new AboutMenu();
+        aboutMenu.loadAboutMenu(menuBar, stageAbout);
+
+        CreditsMenu creditsMenu = new CreditsMenu();
+        creditsMenu.loadCreditsMenu(menuBar, stageCredits);
 
     }
 

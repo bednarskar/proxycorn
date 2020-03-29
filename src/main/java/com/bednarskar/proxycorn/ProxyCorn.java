@@ -25,6 +25,8 @@ public class ProxyCorn extends Application {
     public static FXMLLoader loaderLoadFilterScene;
     public static FXMLLoader mainLoader;
     public static FXMLLoader loaderPluginScene;
+    public static FXMLLoader loaderInstallPluginScene;
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -37,6 +39,7 @@ public class ProxyCorn extends Application {
         loaderFilterScene= new FXMLLoader(getClass().getResource(DynamicStyles.SAVE_FILTER_SCENE));
         loaderLoadFilterScene = new FXMLLoader(getClass().getResource(DynamicStyles.LOAD_FILTER_SCENE));
         loaderPluginScene = new FXMLLoader(getClass().getResource(DynamicStyles.LOAD_PLUGIN_SCENE));
+        loaderInstallPluginScene = new FXMLLoader(getClass().getResource(DynamicStyles.INSTALL_PLUGIN_SCENE));
 
         Parent mainBox = (Pane) mainLoader.load();
         Scene mainScene = new Scene(mainBox);

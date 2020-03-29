@@ -61,7 +61,12 @@ public class SaveFilterWindowController {
     public void saveFilter () {
         String filterName = filterNameField.getText();
         ObjectMapper mapper = new ObjectMapper();
-
+        File f = new File(DynamicStyles.SAVED_FILTERS_PATH);
+        if (!(f.exists() && f.isDirectory())) {
+            LOGGER.info("Directory " + DynamicStyles.SAVED_FILTERS_PATH + " not exists. creating directory. ");
+            boolean created = new File(DynamicStyles.SAVED_FILTERS_PATH).mkdirs();
+            LOGGER.info("Directory created? : " + created);
+        }
         try {
             saveFilterButton.getScene().getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
