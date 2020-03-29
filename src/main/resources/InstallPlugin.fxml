@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<VBox id="Window" fx:id="installPluginWindow" maxHeight="400"
+      maxWidth="700" minHeight="400" minWidth="700" prefHeight="400.0" prefWidth="700.0"
+      xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@css/styles.css" fx:controller="com.bednarskar.proxycorn.controllers.InstallPluginWindowController" style="-fx-background-color: #ffe1f5;">
+<ScrollPane fx:id="scrollPaneLoadPlugins" maxWidth="700" maxHeight="400" prefHeight="400" prefWidth="700">
+    <GridPane maxHeight="120" maxWidth="300" prefHeight="120" prefWidth="300" VBox.vgrow="ALWAYS"
+                fx:id="installPluginAnchor">
+        <Button fx:id="choosePluginButton" onMouseClicked="#choosePlugin" text="Choose plugin to install"/>
+    </GridPane>
+</ScrollPane>
+</VBox>

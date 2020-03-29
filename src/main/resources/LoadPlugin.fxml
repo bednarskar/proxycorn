@@ -6,7 +6,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.ScrollPane?>
-<fx:root type="javafx.scene.layout.VBox" id="Window" fx:id="LoadPluginWindow" maxHeight="400"
+<?import javafx.scene.control.Label?>
+<VBox id="Window" fx:id="LoadPluginWindow" maxHeight="400"
          maxWidth="700" minHeight="400" minWidth="700" prefHeight="400.0" prefWidth="700.0"
          xmlns="http://javafx.com/javafx/8.0.171"
          xmlns:fx="http://javafx.com/fxml/1"
@@ -14,6 +15,7 @@
     <ScrollPane fx:id="scrollPaneLoadPlugins" minHeight="400" minWidth="700" maxWidth="700">
     <GridPane maxHeight="120" maxWidth="300" prefHeight="120" prefWidth="300" VBox.vgrow="ALWAYS"
                 fx:id="loadPluginAnchor">
+        <Label fx:id="label" text=""/>
 <!--        <ImageView id="boxImage" layoutX="0">-->
 <!--            <image>-->
 <!--                <Image url="@img/tux.png" backgroundLoading="true" smooth="true"/>-->
@@ -21,4 +23,4 @@
 <!--        </ImageView>-->
     </GridPane></ScrollPane>
 
-</fx:root>
+</VBox>

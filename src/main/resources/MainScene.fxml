@@ -19,6 +19,7 @@
                         <MenuItem mnemonicParsing="false" text="Save filters"/>
                         <MenuItem mnemonicParsing="false" text="Load filters"/>
                         <MenuItem mnemonicParsing="false" text="Configure proxy sources"/>
+                        <MenuItem mnemonicParsing="false" text="Install plugin"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="About">
