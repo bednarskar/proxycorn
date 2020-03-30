@@ -6,6 +6,7 @@ import com.bednarskar.proxycorn.menu.configurator.*;
 import com.bednarskar.proxycorn.models.FilterCheckBox;
 import com.bednarskar.proxycorn.models.PortNumberField;
 import com.bednarskar.proxycorn.utils.CountryButtonsBuilder;
+import com.bednarskar.proxycorn.utils.ProjectConstants;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -40,7 +41,7 @@ public class MainController {
     private ResourceBundle resources;
 
     @FXML
-    private VBox GobblerProxy;
+    private VBox mainWindow;
 
     @FXML
     private MenuBar menuBar;
@@ -81,15 +82,16 @@ public class MainController {
     @FXML
     private GridPane labelsForPort;
 
-    private Stage stageInstallPlugin = new Stage();
-    private Stage stageLoadPlugin = new Stage();
-    private Stage stageAbout = new Stage();
-    private Stage stageCredits = new Stage();
-
+    private Stage stageInstallPlugin = prepareStage(ProjectConstants.INSTALL_PLUGIN, 700,400, false);
+    private Stage stageLoadPlugin = prepareStage(ProjectConstants.SETUP_PLUGIN, 700, 400, false);
+    private Stage stageAbout = prepareStage(ProjectConstants.ABOUT, 700,400, false);
+    private Stage stageCredits = prepareStage(ProjectConstants.CREDITS, 700, 400, false);
+    private Stage stageLoadFilter = prepareStage(ProjectConstants.LOAD_FILTER, 700, 400, false);
+    private Stage stageSaveFilter = prepareStage(ProjectConstants.SAVE_FILTER, 300, 120, false);
 
     @FXML
     void initialize () {
-        assert GobblerProxy != null : "fx:id=\"GobblerProxy\" was not injected: check your FXML file 'GoblerScene'.";
+        assert mainWindow != null : "fx:id=\"GobblerProxy\" was not injected: check your FXML file 'GoblerScene'.";
         assert menuBar != null : "fx:id=\"ProxyGobbler\" was not injected: check your FXML file 'GoblerScene'.";
         assert optionsGroup != null : "fx:id=\"optionsGroup\" was not injected: check your FXML file 'GoblerScene'.";
         assert https != null : "fx:id=\"https\" was not injected: check your FXML file 'GoblerScene'.";
@@ -102,11 +104,11 @@ public class MainController {
         CountryButtonsBuilder countryButtonsBuilder = new CountryButtonsBuilder();
         countryButtonsBuilder.prepareCountryButtons(buttons);
 
-        ConfigureMenu configureMenu = new ConfigureMenu();
-        configureMenu.loadConfigureMenu(menuBar);
+        SaveFilterMenu saveFilterMenu = new SaveFilterMenu();
+        saveFilterMenu.loadConfigureMenu(menuBar, stageSaveFilter);
 
         LoadFiltersMenu loadFiltersMenu = new LoadFiltersMenu();
-        loadFiltersMenu.loadLoadFiltersMenu(menuBar);
+        loadFiltersMenu.loadLoadFiltersMenu(menuBar, stageLoadFilter);
 
         ConfigurePluginsMenu configurePluginsMenu = new ConfigurePluginsMenu();
         configurePluginsMenu.loadConfigurePluginsMenu(menuBar, stageLoadPlugin);
@@ -146,4 +148,12 @@ public class MainController {
     }
 
 
+    private Stage prepareStage(String title, double width, double height, boolean resizable) {
+        Stage stage = new Stage();
+        stage.setMinWidth(width);
+        stage.setMinHeight(height);
+        stage.setTitle(title);
+        stage.setResizable(resizable);
+        return stage;
+    }
 }

@@ -4,7 +4,7 @@ import com.bednarskar.proxycorn.ProxyCorn;
 import com.bednarskar.proxycorn.api.model.Filter;
 import com.bednarskar.proxycorn.models.CountryButton;
 import com.bednarskar.proxycorn.models.FilterCheckBox;
-import com.bednarskar.proxycorn.utils.DynamicStyles;
+import com.bednarskar.proxycorn.utils.ProjectConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.Event;
@@ -40,7 +40,7 @@ public final class LoadFilterWindowController {
     private VBox loadFilterWindow;
 
     @FXML
-    private AnchorPane mainAnchor;
+    private AnchorPane loadFiltersAnchor;
 
     @FXML
     private Label label;
@@ -72,16 +72,16 @@ public final class LoadFilterWindowController {
     @FXML
     void initialize() throws IOException {
         LOGGER.debug("Load filter window opened...");
-        loadFilterWindow.setDisable(false);
-        loadFilterWindow.requestLayout();
-        loadFilterWindow.layout();
+//        loadFilterWindow.setDisable(false);
+//        loadFilterWindow.requestLayout();
+//        loadFilterWindow.layout();
         filters = getFilters();
         load.setOnMouseClicked(event -> {
             String idToLoad = prevArea.getId();
             Filter.getInstance().setCountryCodes(filters.get(idToLoad).getCountryCodes());
             Filter.getInstance().setPortNumbers(filters.get(idToLoad).getPortNumbers());
             Filter.getInstance().setProtocols(filters.get(idToLoad).getProtocols());
-            ProxyCorn.mainLoader.setRoot(new VBox());
+//            ProxyCorn.mainLoader.setRoot(new VBox());
             MainController controller = ProxyCorn.mainLoader.getController();
             List<String> codesCountry = filters.get(idToLoad).getCountryCodes();
             controller.getButtons().getChildren().forEach(child -> {
@@ -106,7 +106,6 @@ public final class LoadFilterWindowController {
                         protocolCheckbox.setSelected(false);
                     }
                 }
-
             });
             controller.preparePortLabelFromLoadedFilter();
             loadFilterWindow.fireEvent(new Event(WindowEvent.WINDOW_CLOSE_REQUEST));
@@ -146,13 +145,13 @@ public final class LoadFilterWindowController {
             labelsForFilter.add(button, 0, i[0]);
             i[0] = i[0] + 1;
         });
-        mainAnchor.getChildren().set(0, labelsForFilter);
+        loadFiltersAnchor.getChildren().set(0, labelsForFilter);
 
     }
 
     private Map<String, Filter> getFilters() throws IOException {
         filters = new HashMap<>();
-        try (Stream<Path> paths = Files.walk(Paths.get(DynamicStyles.SAVED_FILTERS_PATH))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(ProjectConstants.SAVED_FILTERS_PATH))) {
             paths
                     .filter(Files::isRegularFile)
                     .forEach(f -> {

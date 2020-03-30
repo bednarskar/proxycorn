@@ -2,7 +2,7 @@ package com.bednarskar.proxycorn.utils;
 
 import java.awt.*;
 
-public class DynamicStyles {
+public class ProjectConstants {
     // styles
     public static final String RED_TEXT = "-fx-text-fill: #cc0000";
     public static final String NORMAL_TEXT = "-fx-text-fill: #000000";
@@ -39,6 +39,9 @@ public class DynamicStyles {
     public static final String INSTALL_PLUGIN = "Install plugin";
     public static final String SETUP_PLUGIN = "Setup plugin";
     public static final String PROPERTIES_FILE_PATH =  System.getProperty("user.home") + "/proxycorn/settings/";
+    public static final String FLATICON_LINK = "https://www.flaticon.com";
+    public static final String FLATICON_PIXEL_PERFECT_LINK = "https://www.flaticon.com/authors/pixel-perfect";
+    public static final String FLATICON_FREEPIK_LINK = "https://www.flaticon.com/authors/freepik";
 
     public static final String DEFAULT_LIGHT_BG_COL = "#ffe1f5";
     public static final String ALL_PNG_FILES_REGEX = ".*\\.png";

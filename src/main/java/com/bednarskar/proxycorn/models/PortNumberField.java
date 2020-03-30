@@ -1,6 +1,6 @@
 package com.bednarskar.proxycorn.models;
 
-import com.bednarskar.proxycorn.utils.DynamicStyles;
+import com.bednarskar.proxycorn.utils.ProjectConstants;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -28,20 +28,20 @@ public class PortNumberField extends TextField {
                 if (! text.matches(PORT_RANGE_PARTIAL_REGEX)) {
                     this.deletePreviousChar();
                 } else {
-                    field.setStyle(DynamicStyles.RED_TEXT);
+                    field.setStyle(ProjectConstants.RED_TEXT);
                 }
             } else {
                 String[] portRange = text.split(SPLITTER);
                 if (portRange.length == 2) {
                     if (Integer.valueOf(portRange[1]) < Integer.valueOf(portRange[0])) {
-                        field.setStyle(DynamicStyles.RED_TEXT);
+                        field.setStyle(ProjectConstants.RED_TEXT);
                     } else {
-                        field.setStyle(DynamicStyles.NORMAL_TEXT);
+                        field.setStyle(ProjectConstants.NORMAL_TEXT);
                     }
                 } else if (portRange.length ==1 && portRange[0].length()>1 && portRange[0].startsWith(ZERO)){
-                    field.setStyle(DynamicStyles.RED_TEXT);
+                    field.setStyle(ProjectConstants.RED_TEXT);
                 } else {
-                    field.setStyle(DynamicStyles.NORMAL_TEXT);
+                    field.setStyle(ProjectConstants.NORMAL_TEXT);
                 }
             }
 

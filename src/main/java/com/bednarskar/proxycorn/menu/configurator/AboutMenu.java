@@ -1,6 +1,6 @@
 package com.bednarskar.proxycorn.menu.configurator;
 
-import com.bednarskar.proxycorn.utils.DynamicStyles;
+import com.bednarskar.proxycorn.utils.ProjectConstants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,14 +17,16 @@ public class AboutMenu {
         menuBar.getMenus().get(1).getItems().get(0).setOnAction(event -> {
             Parent vBox = null;
             try {
-                vBox = FXMLLoader.load(getClass().getResource(DynamicStyles.ABOUT_SCENE));
+                vBox = FXMLLoader.load(getClass().getResource(ProjectConstants.ABOUT_SCENE));
             } catch(IOException e) {
-                LOGGER.error("Cannot load view " + DynamicStyles.ABOUT_SCENE, e);
+                LOGGER.error("Cannot load view " + ProjectConstants.ABOUT_SCENE, e);
             }
             assert vBox != null;
             Scene aboutScene = new Scene(vBox);
             stageInstallPluginsWindow.setScene(aboutScene);
-            stageInstallPluginsWindow.setTitle(DynamicStyles.ABOUT);
+//            stageInstallPluginsWindow.setTitle(ProjectConstants.ABOUT);
+//            stageInstallPluginsWindow.setResizable(false);
+            stageInstallPluginsWindow.toFront();
             stageInstallPluginsWindow.show();
         });
     }

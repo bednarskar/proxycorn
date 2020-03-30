@@ -3,7 +3,7 @@ package com.bednarskar.proxycorn.events;
 import com.bednarskar.proxycorn.api.model.Filter;
 import com.bednarskar.proxycorn.controllers.PortLabelsController;
 import com.bednarskar.proxycorn.models.PortNumberField;
-import com.bednarskar.proxycorn.utils.DynamicStyles;
+import com.bednarskar.proxycorn.utils.ProjectConstants;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
@@ -17,7 +17,7 @@ public class RemoveAddPort {
 
 
     public void removePortEvent (PortNumberField portNumbers, GridPane labelsForPort, ScrollPane choosenPorts) {
-        if (! portNumbers.getStyle().contains(DynamicStyles.RED_TEXT)) {
+        if (! portNumbers.getStyle().contains(ProjectConstants.RED_TEXT)) {
             String port = portNumbers.getText();
             if (Filter.getInstance().getPortNumbers().contains(port)) {
                 Filter.getInstance().getPortNumbers().removeIf(el -> el.equals(port));
@@ -45,7 +45,7 @@ public class RemoveAddPort {
     }
 
     public void addPortEvent (PortNumberField portNumbers, ScrollPane choosenPorts) {
-        if (! portNumbers.getStyle().contains(DynamicStyles.RED_TEXT) && !portNumbers.getText().equals("")) {
+        if (! portNumbers.getStyle().contains(ProjectConstants.RED_TEXT) && !portNumbers.getText().equals("")) {
             String port = portNumbers.getText();
             Label portLabel = new Label();
             portLabel.setText(port);
