@@ -1,7 +1,7 @@
 package com.bednarskar.proxycorn.controllers;
 
 import com.bednarskar.proxycorn.api.model.Filter;
-import com.bednarskar.proxycorn.utils.DynamicStyles;
+import com.bednarskar.proxycorn.utils.ProjectConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -61,10 +61,10 @@ public class SaveFilterWindowController {
     public void saveFilter () {
         String filterName = filterNameField.getText();
         ObjectMapper mapper = new ObjectMapper();
-        File f = new File(DynamicStyles.SAVED_FILTERS_PATH);
+        File f = new File(ProjectConstants.SAVED_FILTERS_PATH);
         if (!(f.exists() && f.isDirectory())) {
-            LOGGER.info("Directory " + DynamicStyles.SAVED_FILTERS_PATH + " not exists. creating directory. ");
-            boolean created = new File(DynamicStyles.SAVED_FILTERS_PATH).mkdirs();
+            LOGGER.info("Directory " + ProjectConstants.SAVED_FILTERS_PATH + " not exists. creating directory. ");
+            boolean created = new File(ProjectConstants.SAVED_FILTERS_PATH).mkdirs();
             LOGGER.info("Directory created? : " + created);
         }
         try {
@@ -74,13 +74,13 @@ public class SaveFilterWindowController {
                     clean();
                 }
             });
-            mapper.writeValue(new File(DynamicStyles.SAVED_FILTERS_PATH + filterName + DynamicStyles.UNDERSCORE + new Date().getTime()), Filter.getInstance());
+            mapper.writeValue(new File(ProjectConstants.SAVED_FILTERS_PATH + filterName + ProjectConstants.UNDERSCORE + new Date().getTime()), Filter.getInstance());
             filterNameField.setVisible(false);
             saveFilterButton.setVisible(false);
-            label.setText(DynamicStyles.FILTER_SAVED);
+            label.setText(ProjectConstants.FILTER_SAVED);
             ok.setVisible(true);
         } catch (IOException e) {
-            LOGGER.error("Cannot save filter. Directory " + DynamicStyles.SAVED_FILTERS_PATH + " does not exist.");
+            LOGGER.error("Cannot save filter. Directory " + ProjectConstants.SAVED_FILTERS_PATH + " does not exist.");
         }
 
     };
@@ -91,8 +91,8 @@ public class SaveFilterWindowController {
     }
 
     private void clean(){
-        filterNameField.setText(DynamicStyles.EMPTY);
-        label.setText(DynamicStyles.SAVE_FILTER_AS);
+        filterNameField.setText(ProjectConstants.EMPTY);
+        label.setText(ProjectConstants.SAVE_FILTER_AS);
         filterNameField.setVisible(true);
         saveFilterButton.setVisible(true);
         ok.setVisible(false);

@@ -1,6 +1,6 @@
 package com.bednarskar.proxycorn.menu.configurator;
 
-import com.bednarskar.proxycorn.utils.DynamicStyles;
+import com.bednarskar.proxycorn.utils.ProjectConstants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,14 +17,14 @@ public class CreditsMenu {
         menuBar.getMenus().get(1).getItems().get(1).setOnAction(event -> {
             Parent vBox = null;
             try {
-                vBox = FXMLLoader.load(getClass().getResource(DynamicStyles.CREDITS_SCENE));
+                vBox = FXMLLoader.load(getClass().getResource(ProjectConstants.LOAD_FILTER_SCENE));
             } catch(IOException e) {
-                LOGGER.error("Cannot load view " + DynamicStyles.CREDITS_SCENE, e);
+                LOGGER.error("Cannot load view " + ProjectConstants.LOAD_FILTER_SCENE, e);
             }
             assert vBox != null;
             Scene creditsScene = new Scene(vBox);
             stageCreditsWindow.setScene(creditsScene);
-            stageCreditsWindow.setTitle(DynamicStyles.CREDITS);
+            stageCreditsWindow.toFront();
             stageCreditsWindow.show();
         });
     }

@@ -1,7 +1,7 @@
 package com.bednarskar.proxycorn.pluginresolver;
 
 import com.bednarskar.proxycorn.api.ProxyCornPlugin;
-import com.bednarskar.proxycorn.utils.DynamicStyles;
+import com.bednarskar.proxycorn.utils.ProjectConstants;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
@@ -65,14 +65,14 @@ public class PluginResolver {
             Attributes jarAttributes = jar.getManifest().getMainAttributes();
             Map<String, String> pluginAttributes = new HashMap<>();
             jarAttributes.forEach((key, value) -> pluginAttributes.put(key.toString(), value.toString()));
-            if (validate(pluginAttributes) && pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE).equalsIgnoreCase(name)) {
+            if (validate(pluginAttributes) && pluginAttributes.get(ProjectConstants.PLUGIN_NAME_ATTRIBUTE).equalsIgnoreCase(name)) {
                 LOGGER.info("Loading additional plugin: " +pluginAttributes);
                 ClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[]{pluginJarFile.toURL()});
-                ProxyCornPlugin plugin = (ProxyCornPlugin) urlClassLoader.loadClass(pluginAttributes.get(DynamicStyles.PLUGIN_PATH_ATTRIBUTE)).getDeclaredConstructor().newInstance();
-                proxyCornPluginMap.put(pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE), plugin);
+                ProxyCornPlugin plugin = (ProxyCornPlugin) urlClassLoader.loadClass(pluginAttributes.get(ProjectConstants.PLUGIN_PATH_ATTRIBUTE)).getDeclaredConstructor().newInstance();
+                proxyCornPluginMap.put(pluginAttributes.get(ProjectConstants.PLUGIN_NAME_ATTRIBUTE), plugin);
                 // set plugin on by default
-                setPluginState(PluginState.ON, pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE));
-                LOGGER.debug("Loaded plugin "+ pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE));
+                setPluginState(PluginState.ON, pluginAttributes.get(ProjectConstants.PLUGIN_NAME_ATTRIBUTE));
+                LOGGER.debug("Loaded plugin "+ pluginAttributes.get(ProjectConstants.PLUGIN_NAME_ATTRIBUTE));
 //                Set<ProxyInstanceBasicInfo> proxyInstanceBasicInfoSet = plugin.getProxyInstanceBasicInfo(Filter.getInstance());
 //                proxyInstanceBasicInfoSet.forEach(proxy -> LOGGER.info(proxy.getIp() + " " + proxy.getPort() + " " + proxy.getProtocol().name()));
             }
@@ -100,9 +100,9 @@ public class PluginResolver {
                 jarAttributes.forEach((key, value) -> pluginAttributes.put(key.toString(), value.toString()));
                 if(validate(pluginAttributes)) {
                     LOGGER.info(pluginAttributes);
-                    ProxyCornPlugin plugin = ( ProxyCornPlugin ) urlClassLoader.loadClass(pluginAttributes.get(DynamicStyles.PLUGIN_PATH_ATTRIBUTE)).getDeclaredConstructor().newInstance();
+                    ProxyCornPlugin plugin = ( ProxyCornPlugin ) urlClassLoader.loadClass(pluginAttributes.get(ProjectConstants.PLUGIN_PATH_ATTRIBUTE)).getDeclaredConstructor().newInstance();
                     LOGGER.info("Loaded plugin class: " + plugin.getName());
-                    String pluginName = pluginAttributes.get(DynamicStyles.PLUGIN_NAME_ATTRIBUTE);
+                    String pluginName = pluginAttributes.get(ProjectConstants.PLUGIN_NAME_ATTRIBUTE);
                     proxyCornPluginMap.put(pluginName, plugin);
                     if (pluginStates.containsKey(pluginName)) {
                         setPluginState(pluginStates.get(pluginName), pluginName);
@@ -119,10 +119,10 @@ public class PluginResolver {
 
     private List<Path> getPluginsPaths () {
         List<Path> pathList = new ArrayList<>();
-        try (Stream<Path> paths = Files.walk(Paths.get(DynamicStyles.PLUGINS_PATH))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(ProjectConstants.PLUGINS_PATH))) {
             paths
                     .filter(Files::isRegularFile)
-                    .filter(p -> ! FilenameUtils.getExtension(p.toString()).equals(DynamicStyles.JAR))
+                    .filter(p -> ! FilenameUtils.getExtension(p.toString()).equals(ProjectConstants.JAR))
                     .forEach(pathList::add);
 
         } catch (IOException e) {
@@ -134,7 +134,7 @@ public class PluginResolver {
     }
 
     private boolean validate (Map<String, String> pluginAttributes) {
-        return pluginAttributes.containsKey(DynamicStyles.PLUGIN_PATH_ATTRIBUTE) && pluginAttributes.containsKey(DynamicStyles.PLUGIN_NAME_ATTRIBUTE);
+        return pluginAttributes.containsKey(ProjectConstants.PLUGIN_PATH_ATTRIBUTE) && pluginAttributes.containsKey(ProjectConstants.PLUGIN_NAME_ATTRIBUTE);
     }
 
     public void setPluginState(Enum<PluginState> pluginState, String pluginName) {
@@ -147,14 +147,14 @@ public class PluginResolver {
         return pluginStates;
     }
     private void savePluginProperties() {
-        File f = new File(DynamicStyles.PROPERTIES_FILE_PATH);
+        File f = new File(ProjectConstants.PROPERTIES_FILE_PATH);
         if (!f.exists() || !f.isDirectory()) {
-            LOGGER.info("Directory " + DynamicStyles.PROPERTIES_FILE_PATH + " not exists. creating directory. ");
-            boolean status = new File(DynamicStyles.PROPERTIES_FILE_PATH).mkdirs();
+            LOGGER.info("Directory " + ProjectConstants.PROPERTIES_FILE_PATH + " not exists. creating directory. ");
+            boolean status = new File(ProjectConstants.PROPERTIES_FILE_PATH).mkdirs();
         }
         LOGGER.info("Plugin state changed - generating plugins.properties file...");
         Properties properties = new Properties();
-        try(OutputStream outputStream = new FileOutputStream(DynamicStyles.PROPERTIES_FILE_PATH + "plugins.properties")){
+        try(OutputStream outputStream = new FileOutputStream(ProjectConstants.PROPERTIES_FILE_PATH + "plugins.properties")){
             pluginStates.forEach((k, v) ->{
                 properties.setProperty(k, v.name());
             });
@@ -169,7 +169,7 @@ public class PluginResolver {
         Properties prop = new Properties();
         try {
             LOGGER.info("Loading saved plugins properties - loading states. ");
-            prop.load(new FileInputStream(DynamicStyles.PROPERTIES_FILE_PATH + "plugins.properties"));
+            prop.load(new FileInputStream(ProjectConstants.PROPERTIES_FILE_PATH + "plugins.properties"));
             prop.forEach((key, value) -> pluginStates.put(( String ) key, PluginState.valueOf(( String ) value)));
             LOGGER.info("PluginStates map populated: " + pluginStates.toString());
         } catch(IOException e) {

@@ -8,18 +8,17 @@
 -fx-focus-color: gray;
 -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
                 -fx-background-insets: 0, 1, 2;
-                -fx-background-radius: 5, 4, 3; }
+                -fx-background-radius: 5, 4, 3;
+}
 .button:focused {
        -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
        -fx-background-insets: 0, 1, 2;
        -fx-background-radius: 5, 4, 3;
-
 }
 .toggleButton:focused {
         -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
         -fx-background-insets: 0, 1, 2;
         -fx-background-radius: 5, 4, 3;
-
 }
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
@@ -52,14 +51,14 @@
    -fx-background-color: transparent;
 }
 #saveFilterButton {
-      -fx-background-color:
+     -fx-background-color:
             #ffe1f5,
             linear-gradient(#ff68ba 50%, white 100%),
             radial-gradient(center 50% -40%, radius 200%, #ffe1f5 45%, rgba(230,230,230,0) 50%);
-        -fx-background-radius: 30;
-        -fx-background-insets: 0,1,1;
-        -fx-text-fill: black;
-        -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+     -fx-background-radius: 30;
+     -fx-background-insets: 0,1,1;
+     -fx-text-fill: black;
+     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
 #saveFilterButton:hover {
     -fx-background-color:
@@ -70,8 +69,8 @@
     -fx-background-insets: 0,1,1;
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
-     -fx-faint-focus-color: transparent;
-     -fx-focus-color:rgba(255,0,0,0.2);
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color:rgba(255,0,0,0.2);
 }
 #ok {
     -fx-background-color:
@@ -92,23 +91,61 @@
     -fx-background-insets: 0,1,1;
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
-     -fx-faint-focus-color: transparent;
-     -fx-focus-color:rgba(255,0,0,0.2);
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color:rgba(255,0,0,0.2);
 }
 
 #scrollPaneLoadPlugins {
--fx-background-image: url("/img/rainbow.png"), url("/img/tux.png");
--fx-background-size: 700, 300 ;
--fx-background-color: transparent;
+    -fx-background-image: url("/img/rainbow.png"), url("/img/tux.png");
+    -fx-background-size: 700, 300 ;
+    -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-position: left top, right 50 top 50;
     -fx-padding: 20,20,20,20;
 }
 #scrollPaneCredits, #scrollPaneAbout {
--fx-background-image: url("/img/rainbow.png");
--fx-background-size: 700;
--fx-background-color: transparent;
+    -fx-background-image: url("/img/rainbow.png");
+    -fx-background-size: 700;
+    -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-position: left;
     -fx-padding: 20,20;
+}
+
+#labeledCredits .button{
+   -fx-background-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+}
+
+#githublink {
+   -fx-background-color:
+       transparent;
+       -fx-faint-focus-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-color: black;
+}
+
+#anchorCredits {
+    -fx-background-image: url("/img/rainbow.png");
+    -fx-background-size: 700;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: #ffe1f5;
+}
+#mainAnchor {
+    -fx-background-repeat: no-repeat;
+    -fx-background-image: url("/img/rainbow.png");
+    -fx-background-size: 300;
+    -fx-background-color: #ffe1f5;
+}
+#loadFiltersAnchor{
+    -fx-background-image: url("/img/rainbow.png");
+    -fx-background-size: 700;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: #ffe1f5;
+}
+
+#githublink:hover {
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }

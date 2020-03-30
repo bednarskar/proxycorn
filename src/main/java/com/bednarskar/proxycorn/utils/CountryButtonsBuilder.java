@@ -17,8 +17,8 @@ public class CountryButtonsBuilder {
     private int columnIndex = 0;
 
     public void prepareCountryButtons(GridPane buttonsGrid) {
-        Reflections reflections = new Reflections(DynamicStyles.IMG_FLAGS_URL, new ResourcesScanner());
-        List<String> sorted = new ArrayList<>(reflections.getResources(Pattern.compile(DynamicStyles.ALL_PNG_FILES_REGEX)));
+        Reflections reflections = new Reflections(ProjectConstants.IMG_FLAGS_URL, new ResourcesScanner());
+        List<String> sorted = new ArrayList<>(reflections.getResources(Pattern.compile(ProjectConstants.ALL_PNG_FILES_REGEX)));
         Collections.sort(sorted);
         buttonsGrid.setPadding(new Insets(5));
 
