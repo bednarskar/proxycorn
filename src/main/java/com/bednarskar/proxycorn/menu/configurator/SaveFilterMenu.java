@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
@@ -24,12 +23,9 @@ public final class SaveFilterMenu {
                 }
                 assert vBox != null;
                 Scene mainFilterScene = new Scene(vBox);
-//                mainFilterScene.setFill(Paint.valueOf(ProjectConstants.DEFAULT_LIGHT_BG_COL));
                 stageFiltersWindow.setScene(mainFilterScene);
-//                stageFiltersWindow.setAlwaysOnTop(true);
                 stageFiltersWindow.toFront();
-//                stageFiltersWindow.setTitle(ProjectConstants.SAVE_FILTER);
-            stageFiltersWindow.show();
+                stageFiltersWindow.show();
         });
     }
 }

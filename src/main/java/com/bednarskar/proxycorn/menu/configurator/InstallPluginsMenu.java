@@ -24,8 +24,6 @@ public class InstallPluginsMenu {
             assert vBox != null;
             Scene installPluginScene = new Scene(vBox);
             stageInstallPluginsWindow.setScene(installPluginScene);
-//            stageInstallPluginsWindow.setTitle(ProjectConstants.INSTALL_PLUGIN);
-//            stageInstallPluginsWindow.setResizable(false);
             stageInstallPluginsWindow.toFront();
             stageInstallPluginsWindow.show();
         });

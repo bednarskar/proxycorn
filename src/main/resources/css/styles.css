@@ -95,15 +95,15 @@
     -fx-focus-color:rgba(255,0,0,0.2);
 }
 
-#scrollPaneLoadPlugins {
+#scrollPaneLoadPlugins, #installPluginAnchor {
     -fx-background-image: url("/img/rainbow.png"), url("/img/tux.png");
     -fx-background-size: 700, 300 ;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: left top, right 50 top 50;
+    -fx-background-position: left top, right 50 top 170;
     -fx-padding: 20,20,20,20;
 }
-#scrollPaneCredits, #scrollPaneAbout {
+#scrollPaneCredits, #scrollPaneAbout, #mainAnchor  {
     -fx-background-image: url("/img/rainbow.png");
     -fx-background-size: 700;
     -fx-background-color: transparent;
@@ -145,7 +145,12 @@
     -fx-background-repeat: no-repeat;
     -fx-background-color: #ffe1f5;
 }
-
+#mainAnchorApp {
+    -fx-background-image: url("/img/rainbow.png");
+    -fx-background-size: 700;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: #ffe1f5;
+    }
 #githublink:hover {
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }

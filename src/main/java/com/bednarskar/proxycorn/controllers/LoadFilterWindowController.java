@@ -9,8 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -74,23 +72,15 @@ public final class LoadFilterWindowController {
     @FXML
     void initialize() throws IOException {
         LOGGER.debug("Load filter window opened...");
-        loadFilterWindow.setDisable(false);
-        loadFilterWindow.requestLayout();
-        loadFilterWindow.layout();
+//        loadFilterWindow.setDisable(false);
+//        loadFilterWindow.requestLayout();
+//        loadFilterWindow.layout();
         filters = getFilters();
         load.setOnMouseClicked(event -> {
             String idToLoad = prevArea.getId();
             Filter.getInstance().setCountryCodes(filters.get(idToLoad).getCountryCodes());
             Filter.getInstance().setPortNumbers(filters.get(idToLoad).getPortNumbers());
             Filter.getInstance().setProtocols(filters.get(idToLoad).getProtocols());
-            Parent vBox = null;
-            try {
-                vBox = FXMLLoader.load(getClass().getResource(ProjectConstants.MAIN_SCENE));
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-            MainController mainController = new MainController();
-            mainController.preparePortLabelFromLoadedFilter();
 //            ProxyCorn.mainLoader.setRoot(new VBox());
             MainController controller = ProxyCorn.mainLoader.getController();
             List<String> codesCountry = filters.get(idToLoad).getCountryCodes();
@@ -116,7 +106,6 @@ public final class LoadFilterWindowController {
                         protocolCheckbox.setSelected(false);
                     }
                 }
-
             });
             controller.preparePortLabelFromLoadedFilter();
             loadFilterWindow.fireEvent(new Event(WindowEvent.WINDOW_CLOSE_REQUEST));

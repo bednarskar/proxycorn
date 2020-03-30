@@ -17,9 +17,9 @@ public class CreditsMenu {
         menuBar.getMenus().get(1).getItems().get(1).setOnAction(event -> {
             Parent vBox = null;
             try {
-                vBox = FXMLLoader.load(getClass().getResource(ProjectConstants.LOAD_FILTER_SCENE));
+                vBox = FXMLLoader.load(getClass().getResource(ProjectConstants.CREDITS_SCENE));
             } catch(IOException e) {
-                LOGGER.error("Cannot load view " + ProjectConstants.LOAD_FILTER_SCENE, e);
+                LOGGER.error("Cannot load view " + ProjectConstants.CREDITS_SCENE, e);
             }
             assert vBox != null;
             Scene creditsScene = new Scene(vBox);
