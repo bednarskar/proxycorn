@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Window;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;

@@ -24,8 +24,6 @@ public class AboutMenu {
             assert vBox != null;
             Scene aboutScene = new Scene(vBox);
             stageInstallPluginsWindow.setScene(aboutScene);
-//            stageInstallPluginsWindow.setTitle(ProjectConstants.ABOUT);
-//            stageInstallPluginsWindow.setResizable(false);
             stageInstallPluginsWindow.toFront();
             stageInstallPluginsWindow.show();
         });
