@@ -73,8 +73,6 @@ public class PluginResolver {
                 // set plugin on by default
                 setPluginState(PluginState.ON, pluginAttributes.get(ProjectConstants.PLUGIN_NAME_ATTRIBUTE));
                 LOGGER.debug("Loaded plugin "+ pluginAttributes.get(ProjectConstants.PLUGIN_NAME_ATTRIBUTE));
-//                Set<ProxyInstanceBasicInfo> proxyInstanceBasicInfoSet = plugin.getProxyInstanceBasicInfo(Filter.getInstance());
-//                proxyInstanceBasicInfoSet.forEach(proxy -> LOGGER.info(proxy.getIp() + " " + proxy.getPort() + " " + proxy.getProtocol().name()));
             }
 
 
@@ -110,8 +108,6 @@ public class PluginResolver {
                         // set plugin off by default
                         setPluginState(PluginState.OFF, pluginName);
                     }
-//                Set<ProxyInstanceBasicInfo> proxyInstanceBasicInfoSet = plugin.getProxyInstanceBasicInfo(Filter.getInstance());
-//                proxyInstanceBasicInfoSet.forEach(proxy -> LOGGER.info(proxy.getIp() + " " + proxy.getPort() + " " + proxy.getProtocol().name()));
                 }
             }
         }

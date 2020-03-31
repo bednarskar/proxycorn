@@ -34,6 +34,7 @@ public final class LoadPluginWindowController {
 
     @FXML
     private Label label;
+
     @FXML
     public void initialize() {
        reloadPlugins();

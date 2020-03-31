@@ -25,9 +25,6 @@ public class ConfigurePluginsMenu {
             assert vBox != null;
             Scene mainPluginScene = new Scene(vBox);
             stagePluginsWindow.setScene(mainPluginScene);
-//            stagePluginsWindow.setTitle(ProjectConstants.SETUP_PLUGIN);
-//
-//            stagePluginsWindow.setResizable(false);
             stagePluginsWindow.toFront();
             stagePluginsWindow.show();
         });

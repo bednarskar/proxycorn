@@ -4,14 +4,20 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <VBox id="Window" fx:id="installPluginWindow" maxHeight="400"
       maxWidth="700" minHeight="400" minWidth="700" prefHeight="400.0" prefWidth="700.0"
       xmlns="http://javafx.com/javafx/8.0.171"
       xmlns:fx="http://javafx.com/fxml/1"
       stylesheets="@css/styles.css" fx:controller="com.bednarskar.proxycorn.controllers.InstallPluginWindowController" style="-fx-background-color: #ffe1f5;">
     <GridPane maxHeight="400" maxWidth="700" prefHeight="400" prefWidth="700" VBox.vgrow="ALWAYS"
-                fx:id="installPluginAnchor" hgap="20" vgap="20">
-        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+                fx:id="installPluginAnchor" hgap="5" vgap="5" columnConstraints="">
+        <padding><Insets top="25" right="65" bottom="25" left="35"/></padding>
         <Button fx:id="choosePluginButton" onMouseClicked="#choosePlugin" text="Choose plugin to install" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="confirmLabel" text="Do you want to install file: " visible="false" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="fileNameLabel" text="" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Button fx:id="confirmInstallButton" visible="false" text="Yes, please, I love unicorns. " GridPane.columnIndex="0" GridPane.rowIndex="3" onMouseClicked="#confirmAndInstallPlugin"/>
+        <Label fx:id="installationCompleteLabel" visible="false" text="Installation complete. Plugin is now off. Turn on in setup plugin menu. " GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <Button fx:id="exitButton" visible="false" text="OK" GridPane.columnIndex="0" GridPane.rowIndex="5" onMouseClicked="#exit"/>
     </GridPane>
 </VBox>

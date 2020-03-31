@@ -2,13 +2,16 @@ package com.bednarskar.proxycorn.controllers;
 
 import com.bednarskar.proxycorn.ProxyCorn;
 import com.bednarskar.proxycorn.api.model.Filter;
+import com.bednarskar.proxycorn.menu.configurator.LoadFiltersMenu;
 import com.bednarskar.proxycorn.models.CountryButton;
 import com.bednarskar.proxycorn.models.FilterCheckBox;
 import com.bednarskar.proxycorn.utils.ProjectConstants;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -21,13 +24,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
@@ -35,15 +41,13 @@ import java.util.stream.Stream;
 public final class LoadFilterWindowController {
 
     static final Logger LOGGER = Logger.getLogger(LoadFilterWindowController.class);
+    public Button remove;
 
     @FXML
     private VBox loadFilterWindow;
 
     @FXML
     private AnchorPane loadFiltersAnchor;
-
-    @FXML
-    private Label label;
 
     @FXML
     private Button load;
@@ -71,36 +75,33 @@ public final class LoadFilterWindowController {
 
     @FXML
     void initialize() throws IOException {
+        labelsForFilter = new GridPane();
         LOGGER.debug("Load filter window opened...");
-//        loadFilterWindow.setDisable(false);
-//        loadFilterWindow.requestLayout();
-//        loadFilterWindow.layout();
         filters = getFilters();
         load.setOnMouseClicked(event -> {
             String idToLoad = prevArea.getId();
             Filter.getInstance().setCountryCodes(filters.get(idToLoad).getCountryCodes());
             Filter.getInstance().setPortNumbers(filters.get(idToLoad).getPortNumbers());
             Filter.getInstance().setProtocols(filters.get(idToLoad).getProtocols());
-//            ProxyCorn.mainLoader.setRoot(new VBox());
             MainController controller = ProxyCorn.mainLoader.getController();
             List<String> codesCountry = filters.get(idToLoad).getCountryCodes();
             controller.getButtons().getChildren().forEach(child -> {
-                ToggleButton childT = (CountryButton) child;
-                if ((codesCountry.contains(childT.getId()) && childT.isSelected())
+                ToggleButton childT = ( CountryButton ) child;
+                if((codesCountry.contains(childT.getId()) && childT.isSelected())
                         || (codesCountry.contains(childT.getId()) && ! childT.isSelected())) {
                     // leave on list or add to list
                     childT.setSelected(false);
                     markMouseClick(childT, true);
-                } else if (! codesCountry.contains(childT.getId()) && childT.isSelected()) {
+                } else if(! codesCountry.contains(childT.getId()) && childT.isSelected()) {
                     // unclick
                     markMouseClick(childT, false);
                 }
                 Filter.getInstance().setCountryCodes(filters.get(idToLoad).getCountryCodes());
             });
             controller.getOptionsGroup().getChildren().forEach(ch -> {
-                if (ch.getClass().getSimpleName().equals("FilterCheckBox")) {
+                if(ch.getClass().getSimpleName().equals("FilterCheckBox")) {
                     CheckBox protocolCheckbox = ( FilterCheckBox ) ch;
-                    if (filter.getProtocols().contains(ch.getId())) {
+                    if(filter.getProtocols().contains(ch.getId())) {
                         protocolCheckbox.setSelected(true);
                     } else {
                         protocolCheckbox.setSelected(false);
@@ -119,7 +120,7 @@ public final class LoadFilterWindowController {
             button.setBorder(Border.EMPTY);
             button.setRotate(0);
             button.setOnMouseClicked(event -> {
-                Button buttonChoosen = (Button) event.getSource();
+                Button buttonChoosen = ( Button ) event.getSource();
                 String id = buttonChoosen.getId();
                 ObjectMapper mapper = new ObjectMapper();
                 try {
@@ -138,14 +139,14 @@ public final class LoadFilterWindowController {
                     prevArea.setText(jsonString);
                     prevArea.setId(id);
                     LOGGER.debug("This is id clicked:" + id);
-                } catch (JsonProcessingException e) {
+                } catch(JsonProcessingException e) {
                     LOGGER.error("Generating preview of filter - error occured.", e);
                 }
             });
             labelsForFilter.add(button, 0, i[0]);
             i[0] = i[0] + 1;
         });
-        loadFiltersAnchor.getChildren().set(0, labelsForFilter);
+        filtersAll.setContent(labelsForFilter);
 
     }
 
@@ -179,5 +180,32 @@ public final class LoadFilterWindowController {
         childT.fireEvent(new MouseEvent(MouseEvent.MOUSE_PRESSED, childT.getLayoutX(), childT.getLayoutY(), childT.getLayoutX(), childT.getLayoutY(), MouseButton.PRIMARY, 1,
                 true, true, true, true, true, true, true, true, true, true, null));
         childT.setSelected(selected);
+    }
+
+    public void removeFilter(MouseEvent event) {
+        Button button = (Button ) event.getSource();
+        AnchorPane anchorPane = (AnchorPane ) button.getParent();
+        FilteredList<Node> filteredList = anchorPane.getChildren().filtered(n -> n.getClass().getSimpleName().equals("TextArea"));
+        LOGGER.info("SIZE:" +filteredList.size());
+        filteredList.forEach(el -> LOGGER.info(el.getId()));
+        List<String> result = new ArrayList<>();
+        try (Stream<Path> walk = Files.walk(Paths.get(ProjectConstants.SAVED_FILTERS_PATH))) {
+            result = walk.map(Path::toString)
+                    .filter(f -> f.contains(filteredList.get(0).getId()) )
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        result.forEach(fileToRemove -> {
+            LOGGER.info("Removing filter" + fileToRemove);
+            File file = new File(fileToRemove);
+            file.delete();
+            try {
+                labelsForFilter.getChildren().clear();
+                initialize();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
